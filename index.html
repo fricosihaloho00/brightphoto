@@ -83,6 +83,7 @@
     .form-submit:hover{opacity:.8}
     .wa-btn{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:12px 24px;background:#25D366;color:#fff;border:none;font-size:13px;letter-spacing:1px;cursor:pointer;border-radius:2px;text-decoration:none;transition:opacity .2s}
     .wa-btn:hover{opacity:.85}
+    /* Admin */
     .admin-login-wrap{min-height:calc(100vh - 61px);display:flex;align-items:center;justify-content:center;background:#f5f4f0}
     .admin-login-card{background:#fff;border:.5px solid #e0e0e0;padding:48px;width:100%;max-width:400px}
     .admin-login-logo{font-size:16px;font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
@@ -109,6 +110,7 @@
     .a-stat{background:#fff;border:.5px solid #e8e8e8;border-radius:8px;padding:20px}
     .a-stat-n{font-size:28px;font-weight:300;margin-bottom:4px}
     .a-stat-l{font-size:12px;color:#aaa;letter-spacing:.5px}
+    .a-stat-c{font-size:11px;color:#4CAF50;margin-top:8px}
     .tbl-wrap{background:#fff;border:.5px solid #e8e8e8;border-radius:8px;overflow:hidden;margin-bottom:24px}
     .tbl-hdr{padding:16px 20px;border-bottom:.5px solid #e8e8e8;display:flex;align-items:center;justify-content:space-between}
     .tbl-ttl{font-size:14px;font-weight:500}
@@ -122,6 +124,7 @@
     .abtn.danger:hover{background:#e24b4a;border-color:#e24b4a}
     .abtn.primary{background:#1a1a1a;color:#fff;border-color:#1a1a1a;padding:8px 20px;font-size:12px;letter-spacing:1px}
     .abtn.primary:hover{opacity:.8}
+    /* Upload */
     .upload-drop{border:1.5px dashed #ccc;border-radius:8px;padding:48px;text-align:center;background:#fff;cursor:pointer;transition:all .2s;margin-bottom:24px;position:relative}
     .upload-drop:hover,.upload-drop.dragover{border-color:#1a1a1a;background:#f9f8f6}
     .upload-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
@@ -133,10 +136,12 @@
     .uinput:focus{border-color:#1a1a1a}
     .progress-bar{height:4px;background:#e0e0e0;border-radius:2px;margin-top:16px;display:none}
     .progress-fill{height:100%;background:#1a1a1a;border-radius:2px;width:0;transition:width .3s}
+    /* Category modal */
     .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:flex;align-items:center;justify-content:center}
     .modal{background:#fff;padding:40px;width:100%;max-width:400px;border-radius:4px}
     .modal h3{font-size:18px;font-weight:400;margin-bottom:24px}
     .modal-btns{display:flex;gap:12px;margin-top:24px;justify-content:flex-end}
+    /* Footer */
     footer{background:#1a1a1a;color:#888;padding:48px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
     .footer-brand{font-size:18px;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:12px}
     .footer-brand em{font-style:italic;font-weight:300}
@@ -317,32 +322,52 @@
 <div class="toast" id="toast"></div>
 
 <script>
+// ── CONFIG ──────────────────────────────────────────────
 const CLOUD_NAME = 'dfavyhpji';
 const UPLOAD_PRESET = 'brightphoto_upload';
 const ADMIN_HASH = '90f174f185af053f1081d005626b9e86e47aab193eda767438ed6ea64edce595';
 
+// ── STORAGE HELPERS ──────────────────────────────────────
 function loadPhotos(){ try{return JSON.parse(localStorage.getItem('bp_photos')||'[]')}catch{return[]} }
 function savePhotos(d){ localStorage.setItem('bp_photos',JSON.stringify(d)) }
-function loadCats(){
-  try{ const s=JSON.parse(localStorage.getItem('bp_cats')||'null'); if(s) return s; }catch{}
+function loadCats(){ 
+  try{
+    const saved = JSON.parse(localStorage.getItem('bp_cats')||'null');
+    if(saved) return saved;
+  }catch{}
   return ['Wedding','Pre-Wedding','Baby & Newborn','Family','Portrait','Commercial'];
 }
 function saveCats(d){ localStorage.setItem('bp_cats',JSON.stringify(d)) }
 
+// ── GALLERY PUBLIC ───────────────────────────────────────
 function renderCatChips(){
-  const cats=loadCats();
-  document.getElementById('cat-chips-dynamic').innerHTML=cats.map(c=>`<div class="cat-chip" onclick="filterGallery('${c}',this)">${c}</div>`).join('');
-  document.getElementById('footer-services').innerHTML=cats.slice(0,5).map(c=>`<a class="footer-link">${c}</a>`).join('');
-  const sel=document.getElementById('contact-session-select');
-  if(sel) sel.innerHTML=cats.map(c=>`<option>${c} Photography</option>`).join('');
+  const cats = loadCats();
+  document.getElementById('cat-chips-dynamic').innerHTML = cats.map(c=>
+    `<div class="cat-chip" onclick="filterGallery('${c}',this)">${c}</div>`
+  ).join('');
+  // footer services
+  document.getElementById('footer-services').innerHTML = cats.slice(0,5).map(c=>
+    `<a class="footer-link">${c}</a>`
+  ).join('');
+  // contact select
+  const sel = document.getElementById('contact-session-select');
+  if(sel) sel.innerHTML = cats.map(c=>`<option>${c} Photography</option>`).join('');
 }
 
 function renderGallery(filter){
-  const photos=loadPhotos();
-  const items=filter==='all'?photos:photos.filter(p=>p.category===filter);
-  document.getElementById('gallery-count').textContent=items.length+' photos';
-  if(items.length===0){ document.getElementById('gallery-grid').innerHTML='<div class="gallery-empty" style="grid-column:1/-1">No photos yet in this category.</div>'; return; }
-  document.getElementById('gallery-grid').innerHTML=items.map(p=>`<div class="gallery-item"><img src="${p.url}" alt="${p.title}" loading="lazy"><div class="overlay"></div><span class="cat-badge">${p.category}</span></div>`).join('');
+  const photos = loadPhotos();
+  const items = filter==='all' ? photos : photos.filter(p=>p.category===filter);
+  document.getElementById('gallery-count').textContent = items.length+' photos';
+  if(items.length===0){
+    document.getElementById('gallery-grid').innerHTML = `<div class="gallery-empty" style="grid-column:1/-1">No photos yet in this category.</div>`;
+    return;
+  }
+  document.getElementById('gallery-grid').innerHTML = items.map(p=>`
+    <div class="gallery-item">
+      <img src="${p.url}" alt="${p.title}" loading="lazy">
+      <div class="overlay"></div>
+      <span class="cat-badge">${p.category}</span>
+    </div>`).join('');
 }
 
 function filterGallery(cat,el){
@@ -353,15 +378,16 @@ function filterGallery(cat,el){
 
 function scrollToGallery(){ document.getElementById('gallery-section').scrollIntoView({behavior:'smooth'}); }
 
+// ── AUTH ─────────────────────────────────────────────────
 async function sha256(msg){
-  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(msg));
+  const buf = await crypto.subtle.digest('SHA-256',new TextEncoder().encode(msg));
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 async function attemptLogin(){
-  const pw=document.getElementById('admin-pw').value;
-  const errEl=document.getElementById('login-err');
+  const pw = document.getElementById('admin-pw').value;
+  const errEl = document.getElementById('login-err');
   if(!pw){errEl.textContent='Please enter the password.';return}
-  const hash=await sha256(pw);
+  const hash = await sha256(pw);
   if(hash===ADMIN_HASH){
     sessionStorage.setItem('bp_auth','1');
     document.getElementById('admin-pw').value='';
@@ -373,37 +399,55 @@ async function attemptLogin(){
     document.getElementById('admin-pw').focus();
   }
 }
-function adminLogout(){ sessionStorage.removeItem('bp_auth'); showPage('home'); showToast('Logged out from admin panel.'); }
+function adminLogout(){
+  sessionStorage.removeItem('bp_auth');
+  showPage('home');
+  showToast('Logged out from admin panel.');
+}
 
+// ── NAVIGATION ───────────────────────────────────────────
 function _showAdminPanel(){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-admin').classList.add('active');
-  window.scrollTo(0,0); renderAdminTab('dashboard');
+  window.scrollTo(0,0);
+  renderAdminTab('dashboard');
 }
 function showPage(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
   if(page==='admin'){
     if(sessionStorage.getItem('bp_auth')==='1'){_showAdminPanel();}
-    else{ document.getElementById('page-admin-login').classList.add('active'); window.scrollTo(0,0); setTimeout(()=>document.getElementById('admin-pw').focus(),100); }
+    else{
+      document.getElementById('page-admin-login').classList.add('active');
+      window.scrollTo(0,0);
+      setTimeout(()=>document.getElementById('admin-pw').focus(),100);
+    }
     return;
   }
   document.getElementById('page-'+page).classList.add('active');
-  const nav=document.getElementById('nav-'+page); if(nav) nav.classList.add('active');
+  const nav=document.getElementById('nav-'+page);
+  if(nav) nav.classList.add('active');
   window.scrollTo(0,0);
   if(page==='home'){renderCatChips();renderGallery('all');}
 }
 
-function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }
-function submitContact(){ showToast('Message sent! We\'ll reply within 24 hours.'); }
+// ── TOAST ────────────────────────────────────────────────
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+function submitContact(){showToast('Message sent! We\'ll reply within 24 hours.');}
 
+// ── ADMIN TABS ───────────────────────────────────────────
 function showAdminTab(tab,el){
   if(el){document.querySelectorAll('.admin-menu-item').forEach(m=>m.classList.remove('active'));el.classList.add('active');}
   renderAdminTab(tab);
 }
 function renderAdminTab(tab){
   const fns={dashboard:tabDashboard,upload:tabUpload,manage:tabManage,categories:tabCategories,blog:tabBlog,inquiries:tabInquiries};
-  const fn=fns[tab]; if(fn) document.getElementById('admin-content').innerHTML=fn();
+  const fn=fns[tab];
+  if(fn) document.getElementById('admin-content').innerHTML=fn();
   if(tab==='upload') initUpload();
 }
 
@@ -420,33 +464,42 @@ function tabDashboard(){
     <div class="tbl-hdr"><span class="tbl-ttl">Recent Photos</span><button class="abtn primary" onclick="showAdminTab('upload',null)">+ Upload New</button></div>
     ${photos.length===0?'<p style="padding:24px;color:#aaa;font-size:13px">No photos uploaded yet.</p>':
     `<table class="atbl"><thead><tr><th>Preview</th><th>Title</th><th>Category</th><th>Actions</th></tr></thead><tbody>
-    ${photos.slice(-6).reverse().map(p=>`<tr><td><img src="${p.url}" style="width:60px;height:44px;object-fit:cover;border-radius:3px"></td><td style="font-weight:500">${p.title}</td><td><span class="tag" style="background:#f0f0f0;color:#444">${p.category}</span></td><td><button class="abtn danger" onclick="deletePhoto('${p.id}')">Delete</button></td></tr>`).join('')}
+    ${photos.slice(-6).reverse().map(p=>`<tr>
+      <td><img src="${p.url}" style="width:60px;height:44px;object-fit:cover;border-radius:3px"></td>
+      <td style="font-weight:500">${p.title}</td>
+      <td><span class="tag" style="background:#f0f0f0;color:#444">${p.category}</span></td>
+      <td><button class="abtn danger" onclick="deletePhoto('${p.id}')">Delete</button></td>
+    </tr>`).join('')}
     </tbody></table>`}
   </div>`;
 }
 
 function tabUpload(){
   const cats=loadCats();
-  return `<div class="admin-hdr"><div><div class="admin-ttl">Upload Photos</div><div class="admin-sub">Add new photos to the gallery via Cloudinary</div></div></div>
+  return `<div class="admin-hdr"><div><div class="admin-ttl">Upload Photos</div><div class="admin-sub">Bulk upload — select multiple photos at once</div></div></div>
   <div class="upload-drop" id="drop-zone">
-    <input type="file" id="file-input" accept="image/*" onchange="previewFile(this)">
+    <input type="file" id="file-input" accept="image/*" multiple onchange="onFilesSelected(this.files)">
     <i class="ti ti-cloud-upload" style="font-size:40px;color:#ccc"></i>
-    <div style="font-size:14px;color:#888;margin-top:12px">Click to select or drag & drop a photo</div>
-    <div style="font-size:12px;color:#bbb;margin-top:4px">JPG, PNG, WEBP up to 20MB</div>
-    <img id="upload-preview" class="upload-preview">
+    <div style="font-size:14px;color:#888;margin-top:12px">Click to select photos or drag & drop</div>
+    <div style="font-size:12px;color:#bbb;margin-top:4px">Select multiple files at once · JPG, PNG, WEBP · max 20MB each</div>
   </div>
-  <div class="upload-form-box">
-    <div style="font-size:14px;font-weight:500;margin-bottom:20px">Photo Details</div>
-    <div class="upload-grid">
-      <div><label class="ulbl">Photo Title</label><input class="uinput" id="up-title" type="text" placeholder="e.g. Anisa & Reza Wedding"></div>
-      <div><label class="ulbl">Category</label><select class="uinput" id="up-cat">${cats.map(c=>`<option>${c}</option>`).join('')}</select></div>
-      <div><label class="ulbl">Date Taken</label><input class="uinput" id="up-date" type="date"></div>
-      <div><label class="ulbl">Client Name</label><input class="uinput" id="up-client" type="text" placeholder="Optional"></div>
+  <div id="bulk-queue"></div>
+  <div class="upload-form-box" style="margin-top:16px">
+    <div style="font-size:14px;font-weight:500;margin-bottom:4px">Default Settings <span style="font-size:12px;color:#aaa;font-weight:400">(applies to all photos)</span></div>
+    <div class="upload-grid" style="margin-top:16px">
+      <div><label class="ulbl">Category</label>
+        <select class="uinput" id="bulk-cat">${cats.map(c=>`<option>${c}</option>`).join('')}</select>
+      </div>
+      <div><label class="ulbl">Date Taken</label><input class="uinput" id="bulk-date" type="date"></div>
+      <div><label class="ulbl">Client Name</label><input class="uinput" id="bulk-client" type="text" placeholder="Optional"></div>
     </div>
-    <div class="progress-bar" id="upload-progress"><div class="progress-fill" id="upload-fill"></div></div>
+    <div id="bulk-progress-wrap" style="display:none;margin-top:20px">
+      <div style="font-size:13px;color:#888;margin-bottom:8px" id="bulk-status-text">Uploading...</div>
+      <div class="progress-bar" style="display:block"><div class="progress-fill" id="bulk-fill"></div></div>
+    </div>
     <div style="margin-top:20px;display:flex;align-items:center;gap:16px">
-      <button class="abtn primary" onclick="doUpload()" id="upload-btn">Upload Photo</button>
-      <span id="upload-status" style="font-size:13px;color:#888"></span>
+      <button class="abtn primary" onclick="doBulkUpload()" id="bulk-upload-btn" style="display:none">Upload All Photos</button>
+      <span id="bulk-count-label" style="font-size:13px;color:#888"></span>
     </div>
   </div>`;
 }
@@ -455,46 +508,67 @@ function initUpload(){
   const dz=document.getElementById('drop-zone'); if(!dz) return;
   dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('dragover')});
   dz.addEventListener('dragleave',()=>dz.classList.remove('dragover'));
-  dz.addEventListener('drop',e=>{ e.preventDefault();dz.classList.remove('dragover'); const f=e.dataTransfer.files[0]; if(f){document.getElementById('file-input').files=e.dataTransfer.files;previewFile({files:[f]});} });
+  dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('dragover');onFilesSelected(e.dataTransfer.files);});
 }
 
-function previewFile(input){
-  const file=input.files[0]; if(!file) return;
-  const prev=document.getElementById('upload-preview');
-  prev.src=URL.createObjectURL(file); prev.style.display='block';
+let bulkFiles=[];
+function onFilesSelected(fileList){
+  bulkFiles=Array.from(fileList);
+  const queue=document.getElementById('bulk-queue');
+  const btn=document.getElementById('bulk-upload-btn');
+  const lbl=document.getElementById('bulk-count-label');
+  if(!bulkFiles.length){queue.innerHTML='';btn.style.display='none';lbl.textContent='';return;}
+  lbl.textContent=bulkFiles.length+' photo'+(bulkFiles.length>1?'s':'')+' selected';
+  btn.style.display='inline-block';
+  queue.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:16px">'+
+    bulkFiles.map((f,i)=>`<div style="background:#fff;border:.5px solid #e8e8e8;border-radius:6px;overflow:hidden" id="qitem-${i}"><img src="${URL.createObjectURL(f)}" style="width:100%;height:110px;object-fit:cover;display:block"><div style="padding:8px"><input class="uinput" style="font-size:12px;padding:6px 8px" placeholder="Title" id="qtitle-${i}" value="${f.name.replace(/\.[^.]+$/,'').replace(/[-_]/g,' ')}"><div id="qstatus-${i}" style="font-size:11px;color:#aaa;margin-top:4px;min-height:16px"></div></div></div>`).join('')+
+  '</div>';
 }
 
-async function doUpload(){
-  const fi=document.getElementById('file-input');
-  const title=document.getElementById('up-title').value.trim();
-  const cat=document.getElementById('up-cat').value;
-  if(!fi.files[0]){showToast('Please select a photo first.');return;}
-  if(!title){showToast('Please enter a photo title.');return;}
-  const btn=document.getElementById('upload-btn');
-  const status=document.getElementById('upload-status');
-  const bar=document.getElementById('upload-progress');
-  const fill=document.getElementById('upload-fill');
-  btn.disabled=true;btn.textContent='Uploading...';
-  bar.style.display='block';status.textContent='Uploading to Cloudinary...';
-  const fd=new FormData();
-  fd.append('file',fi.files[0]);fd.append('upload_preset',UPLOAD_PRESET);fd.append('folder','brightphoto');
-  const xhr=new XMLHttpRequest();
-  xhr.upload.onprogress=e=>{ if(e.lengthComputable) fill.style.width=Math.round(e.loaded/e.total*100)+'%'; };
-  xhr.onload=()=>{
-    if(xhr.status===200){
-      const res=JSON.parse(xhr.responseText);
+async function doBulkUpload(){
+  if(!bulkFiles.length){showToast('No files selected.');return;}
+  const cat=document.getElementById('bulk-cat').value;
+  const date=document.getElementById('bulk-date').value;
+  const client=document.getElementById('bulk-client').value.trim();
+  const btn=document.getElementById('bulk-upload-btn');
+  const wrap=document.getElementById('bulk-progress-wrap');
+  const fill=document.getElementById('bulk-fill');
+  const statusText=document.getElementById('bulk-status-text');
+  btn.disabled=true; wrap.style.display='block';
+  let done=0; let failed=0;
+  for(let i=0;i<bulkFiles.length;i++){
+    const f=bulkFiles[i];
+    const title=(document.getElementById('qtitle-'+i)?.value.trim())||f.name;
+    const qstatus=document.getElementById('qstatus-'+i);
+    const qitem=document.getElementById('qitem-'+i);
+    if(qstatus) qstatus.textContent='Uploading...';
+    statusText.textContent='Uploading '+(i+1)+' of '+bulkFiles.length+'...';
+    fill.style.width=Math.round((i/bulkFiles.length)*100)+'%';
+    try{
+      const fd=new FormData();
+      fd.append('file',f);
+      fd.append('upload_preset',UPLOAD_PRESET);
+      fd.append('folder','brightphoto');
+      const res=await fetch('https://api.cloudinary.com/v1_1/'+CLOUD_NAME+'/image/upload',{method:'POST',body:fd});
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      const data=await res.json();
+      if(data.error) throw new Error(data.error.message);
       const photos=loadPhotos();
-      photos.push({id:Date.now().toString(),url:res.secure_url,title,category:cat,client:document.getElementById('up-client').value.trim(),date:document.getElementById('up-date').value,uploaded:new Date().toISOString()});
+      photos.push({id:Date.now().toString()+'_'+i,url:data.secure_url,title,category:cat,client,date,uploaded:new Date().toISOString()});
       savePhotos(photos);
-      fill.style.width='100%'; status.textContent='✓ Uploaded successfully!';
-      btn.disabled=false;btn.textContent='Upload Photo';
-      showToast(`"${title}" uploaded to gallery!`);
-      setTimeout(()=>renderAdminTab('upload'),1500);
-    } else { status.textContent='Upload failed.'; btn.disabled=false;btn.textContent='Upload Photo'; }
-  };
-  xhr.onerror=()=>{ status.textContent='Network error.'; btn.disabled=false;btn.textContent='Upload Photo'; };
-  xhr.open('POST',`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`);
-  xhr.send(fd);
+      done++;
+      if(qstatus){qstatus.textContent='✓ Done';qstatus.style.color='#4CAF50';}
+      if(qitem) qitem.style.opacity='.6';
+    }catch(e){
+      failed++;
+      if(qstatus){qstatus.textContent='✗ Failed: '+e.message;qstatus.style.color='#e24b4a';}
+    }
+  }
+  fill.style.width='100%';
+  statusText.textContent='Done! '+done+' uploaded'+(failed?', '+failed+' failed':'');
+  btn.disabled=false; btn.textContent='Upload More';
+  showToast(done+' photo'+(done!==1?'s':'')+' uploaded successfully!');
+  bulkFiles=[];
 }
 
 function tabManage(){
@@ -503,63 +577,115 @@ function tabManage(){
   return `<div class="admin-hdr"><div><div class="admin-ttl">Manage Gallery</div><div class="admin-sub">${photos.length} photos</div></div></div>
   <div class="tbl-wrap"><table class="atbl">
     <thead><tr><th>Preview</th><th>Title</th><th>Category</th><th>Client</th><th>Date</th><th>Actions</th></tr></thead>
-    <tbody>${photos.slice().reverse().map(p=>`<tr><td><img src="${p.url}" style="width:60px;height:44px;object-fit:cover;border-radius:3px"></td><td style="font-weight:500">${p.title}</td><td><span class="tag" style="background:#f0f0f0;color:#444">${p.category}</span></td><td style="color:#aaa">${p.client||'—'}</td><td style="color:#aaa">${p.date||'—'}</td><td><button class="abtn danger" onclick="deletePhoto('${p.id}')">Delete</button></td></tr>`).join('')}
-    </tbody></table></div>`;
+    <tbody>${photos.slice().reverse().map(p=>`<tr>
+      <td><img src="${p.url}" style="width:60px;height:44px;object-fit:cover;border-radius:3px"></td>
+      <td style="font-weight:500">${p.title}</td>
+      <td><span class="tag" style="background:#f0f0f0;color:#444">${p.category}</span></td>
+      <td style="color:#aaa">${p.client||'—'}</td>
+      <td style="color:#aaa">${p.date||'—'}</td>
+      <td><button class="abtn danger" onclick="deletePhoto('${p.id}')">Delete</button></td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div>`;
 }
 
 function deletePhoto(id){
   if(!confirm('Delete this photo? This cannot be undone.')) return;
-  savePhotos(loadPhotos().filter(p=>p.id!==id));
-  renderAdminTab('manage'); showToast('Photo deleted.');
+  let photos=loadPhotos();
+  photos=photos.filter(p=>p.id!==id);
+  savePhotos(photos);
+  renderAdminTab('manage');
+  showToast('Photo deleted.');
 }
 
 function tabCategories(){
   const cats=loadCats(); const photos=loadPhotos();
   return `<div class="admin-hdr">
-    <div><div class="admin-ttl">Categories</div><div class="admin-sub">Changes reflect on the public gallery</div></div>
+    <div><div class="admin-ttl">Categories</div><div class="admin-sub">Manage photo categories — changes reflect on the public gallery</div></div>
     <button class="abtn primary" onclick="openAddCat()">+ Add Category</button>
   </div>
   <div class="tbl-wrap"><table class="atbl">
     <thead><tr><th>Category Name</th><th>Photo Count</th><th>Actions</th></tr></thead>
-    <tbody>${cats.map((c,i)=>`<tr><td style="font-weight:500">${c}</td><td>${photos.filter(p=>p.category===c).length} photos</td><td><button class="abtn" onclick="openRenameCat(${i},'${c.replace(/'/g,"\\'")}')">Rename</button> <button class="abtn danger" onclick="deleteCat(${i})">Delete</button></td></tr>`).join('')}
-    </tbody></table></div>
-  <p style="font-size:12px;color:#bbb;margin-top:16px">Deleting a category does not delete its photos.</p>`;
+    <tbody>${cats.map((c,i)=>`<tr>
+      <td style="font-weight:500">${c}</td>
+      <td>${photos.filter(p=>p.category===c).length} photos</td>
+      <td>
+        <button class="abtn" onclick="openRenameCat(${i},'${c.replace(/'/g,"\\'")}')">Rename</button>
+        <button class="abtn danger" onclick="deleteCat(${i})">Delete</button>
+      </td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div>
+  <p style="font-size:12px;color:#bbb;margin-top:16px">Note: Deleting a category does not delete its photos — they remain in the gallery.</p>`;
 }
 
-let catEditIndex=-1;
-function openAddCat(){ catEditIndex=-1; document.getElementById('cat-modal-title').textContent='Add Category'; document.getElementById('cat-modal-input').value=''; document.getElementById('cat-modal').style.display='flex'; setTimeout(()=>document.getElementById('cat-modal-input').focus(),100); }
-function openRenameCat(i,name){ catEditIndex=i; document.getElementById('cat-modal-title').textContent='Rename Category'; document.getElementById('cat-modal-input').value=name; document.getElementById('cat-modal').style.display='flex'; setTimeout(()=>document.getElementById('cat-modal-input').focus(),100); }
+// Category modal
+let catEditIndex = -1;
+function openAddCat(){
+  catEditIndex=-1;
+  document.getElementById('cat-modal-title').textContent='Add Category';
+  document.getElementById('cat-modal-input').value='';
+  document.getElementById('cat-modal').style.display='flex';
+  setTimeout(()=>document.getElementById('cat-modal-input').focus(),100);
+}
+function openRenameCat(i,name){
+  catEditIndex=i;
+  document.getElementById('cat-modal-title').textContent='Rename Category';
+  document.getElementById('cat-modal-input').value=name;
+  document.getElementById('cat-modal').style.display='flex';
+  setTimeout(()=>document.getElementById('cat-modal-input').focus(),100);
+}
 function closeCatModal(){ document.getElementById('cat-modal').style.display='none'; }
 function saveCatModal(){
   const val=document.getElementById('cat-modal-input').value.trim();
   if(!val){showToast('Please enter a category name.');return;}
   const cats=loadCats();
-  if(catEditIndex===-1){ if(cats.includes(val)){showToast('Category already exists.');return;} cats.push(val); showToast(`Category "${val}" added.`); }
-  else { cats[catEditIndex]=val; showToast(`Category renamed to "${val}".`); }
-  saveCats(cats); closeCatModal(); renderAdminTab('categories'); renderCatChips();
+  if(catEditIndex===-1){
+    if(cats.includes(val)){showToast('Category already exists.');return;}
+    cats.push(val);
+    showToast(`Category "${val}" added.`);
+  } else {
+    cats[catEditIndex]=val;
+    showToast(`Category renamed to "${val}".`);
+  }
+  saveCats(cats);
+  closeCatModal();
+  renderAdminTab('categories');
+  renderCatChips();
 }
 function deleteCat(i){
   const cats=loadCats();
   if(!confirm(`Delete category "${cats[i]}"?`)) return;
-  cats.splice(i,1); saveCats(cats); renderAdminTab('categories'); renderCatChips(); showToast('Category deleted.');
+  cats.splice(i,1);
+  saveCats(cats);
+  renderAdminTab('categories');
+  renderCatChips();
+  showToast('Category deleted.');
 }
 
 function tabBlog(){
   return `<div class="admin-hdr"><div><div class="admin-ttl">Blog Posts</div></div><button class="abtn primary" onclick="showToast('Blog editor coming soon!')">+ New Post</button></div>
-  <div class="tbl-wrap"><table class="atbl"><thead><tr><th>Title</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody>
-    <tr><td style="font-weight:500">Anisa & Reza — A Sundanese Ceremony</td><td style="color:#aaa">May 2025</td><td><span style="font-size:11px;color:#4CAF50">● Published</span></td><td><button class="abtn">Edit</button></td></tr>
-    <tr><td style="font-weight:500">Golden Hour: Planning Sessions Around Light</td><td style="color:#aaa">Apr 2025</td><td><span style="font-size:11px;color:#4CAF50">● Published</span></td><td><button class="abtn">Edit</button></td></tr>
-  </tbody></table></div>`;
+  <div class="tbl-wrap"><table class="atbl">
+    <thead><tr><th>Title</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>
+      <tr><td style="font-weight:500">Anisa & Reza — A Sundanese Ceremony</td><td style="color:#aaa">May 2025</td><td><span style="font-size:11px;color:#4CAF50">● Published</span></td><td><button class="abtn">Edit</button></td></tr>
+      <tr><td style="font-weight:500">Golden Hour: Planning Sessions Around Light</td><td style="color:#aaa">Apr 2025</td><td><span style="font-size:11px;color:#4CAF50">● Published</span></td><td><button class="abtn">Edit</button></td></tr>
+    </tbody>
+  </table></div>`;
 }
 
 function tabInquiries(){
   return `<div class="admin-hdr"><div><div class="admin-ttl">Booking Inquiries</div><div class="admin-sub">Client messages and booking requests</div></div></div>
-  <div class="tbl-wrap"><table class="atbl"><thead><tr><th>Name</th><th>Session</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody>
-    <tr><td style="font-weight:500">Dewi Santoso</td><td>Wedding</td><td style="color:#aaa">Today</td><td><span style="font-size:11px;color:#e8a020">● New</span></td><td><button class="abtn">Reply</button></td></tr>
-    <tr><td style="font-weight:500">Budi Pratama</td><td>Pre-Wedding</td><td style="color:#aaa">Yesterday</td><td><span style="font-size:11px;color:#e8a020">● New</span></td><td><button class="abtn">Reply</button></td></tr>
-  </tbody></table></div>`;
+  <div class="tbl-wrap"><table class="atbl">
+    <thead><tr><th>Name</th><th>Session</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>
+      <tr><td style="font-weight:500">Dewi Santoso</td><td>Wedding</td><td style="color:#aaa">Today</td><td><span style="font-size:11px;color:#e8a020">● New</span></td><td><button class="abtn">Reply</button></td></tr>
+      <tr><td style="font-weight:500">Budi Pratama</td><td>Pre-Wedding</td><td style="color:#aaa">Yesterday</td><td><span style="font-size:11px;color:#e8a020">● New</span></td><td><button class="abtn">Reply</button></td></tr>
+    </tbody>
+  </table></div>`;
 }
 
+// ── INIT ─────────────────────────────────────────────────
 renderCatChips();
 renderGallery('all');
 </script>
