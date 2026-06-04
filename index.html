@@ -134,6 +134,18 @@
     .footer-bottom { background: #111; padding: 16px 48px; font-size: 12px; color: #555; display: flex; justify-content: space-between; }
     .toast { position: fixed; bottom: 32px; right: 32px; background: #1a1a1a; color: #fff; padding: 12px 24px; font-size: 13px; border-radius: 4px; transform: translateY(80px); opacity: 0; transition: all 0.3s; z-index: 999; }
     .toast.show { transform: translateY(0); opacity: 1; }
+    .admin-login-wrap { min-height: calc(100vh - 61px); display: flex; align-items: center; justify-content: center; background: #f5f4f0; }
+    .admin-login-card { background: #fff; border: 0.5px solid #e0e0e0; padding: 48px; width: 100%; max-width: 400px; }
+    .admin-login-logo { font-size: 16px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+    .admin-login-logo em { font-style: italic; font-weight: 300; }
+    .admin-login-sub { font-size: 12px; color: #aaa; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 40px; }
+    .admin-login-label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; }
+    .admin-login-input { width: 100%; padding: 12px 0; border: none; border-bottom: 0.5px solid #ccc; font-size: 15px; font-family: inherit; background: transparent; outline: none; transition: border-color 0.2s; margin-bottom: 32px; }
+    .admin-login-input:focus { border-bottom-color: #1a1a1a; }
+    .admin-login-btn { width: 100%; padding: 14px; background: #1a1a1a; color: #fff; border: none; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; }
+    .admin-login-btn:hover { opacity: 0.8; }
+    .admin-login-error { font-size: 13px; color: #e24b4a; margin-top: 16px; text-align: center; min-height: 20px; }
+    .admin-login-hint { font-size: 12px; color: #bbb; text-align: center; margin-top: 24px; }
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
@@ -338,6 +350,21 @@
   <div class="footer-bottom"><span>© 2025 Brightphoto</span></div>
 </div>
 
+<!-- ADMIN LOGIN -->
+<div class="page" id="page-admin-login">
+  <div class="admin-login-wrap">
+    <div class="admin-login-card">
+      <div class="admin-login-logo">Bright<em>photo</em></div>
+      <div class="admin-login-sub">Admin Access</div>
+      <label class="admin-login-label">Password</label>
+      <input class="admin-login-input" type="password" id="admin-password-input" placeholder="Enter admin password" onkeydown="if(event.key==='Enter') attemptLogin()">
+      <button class="admin-login-btn" onclick="attemptLogin()">Enter Admin Panel</button>
+      <div class="admin-login-error" id="admin-login-error"></div>
+      <div class="admin-login-hint">Secured with SHA-256 · Session only</div>
+    </div>
+  </div>
+</div>
+
 <!-- ADMIN -->
 <div class="page" id="page-admin">
   <div class="admin-layout">
@@ -351,6 +378,7 @@
       <div class="admin-menu-item" onclick="showAdminTab('inquiries', this)"><i class="ti ti-mail"></i> Inquiries</div>
       <div style="margin-top:32px; border-top:0.5px solid #333; padding-top:16px;">
         <div class="admin-menu-item" onclick="showPage('home')"><i class="ti ti-arrow-left"></i> Back to Site</div>
+        <div class="admin-menu-item" onclick="adminLogout()" style="color:#e24b4a;margin-top:8px;"><i class="ti ti-logout"></i> Logout</div>
       </div>
     </div>
     <div class="admin-content" id="admin-content"></div>
@@ -399,14 +427,60 @@ function filterGallery(cat,el){
   renderGallery(cat);
 }
 function scrollToGallery(){ document.getElementById('gallery-section').scrollIntoView({behavior:'smooth'}); }
+
+const ADMIN_HASH = '90f174f185af053f1081d005626b9e86e47aab193eda767438ed6ea64edce595';
+
+async function sha256(msg) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+async function attemptLogin() {
+  const pw = document.getElementById('admin-password-input').value;
+  const errEl = document.getElementById('admin-login-error');
+  if (!pw) { errEl.textContent = 'Please enter the password.'; return; }
+  const hash = await sha256(pw);
+  if (hash === ADMIN_HASH) {
+    sessionStorage.setItem('bp_auth', '1');
+    document.getElementById('admin-password-input').value = '';
+    errEl.textContent = '';
+    _showAdminPanel();
+  } else {
+    errEl.textContent = 'Incorrect password. Please try again.';
+    document.getElementById('admin-password-input').value = '';
+    document.getElementById('admin-password-input').focus();
+  }
+}
+
+function _showAdminPanel() {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-admin').classList.add('active');
+  window.scrollTo(0,0);
+  renderAdminTab('dashboard');
+}
+
 function showPage(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  if (page === 'admin') {
+    if (sessionStorage.getItem('bp_auth') === '1') {
+      _showAdminPanel();
+    } else {
+      document.getElementById('page-admin-login').classList.add('active');
+      window.scrollTo(0,0);
+      setTimeout(()=>document.getElementById('admin-password-input').focus(), 100);
+    }
+    return;
+  }
   document.getElementById('page-'+page).classList.add('active');
   const navEl=document.getElementById('nav-'+page);
   if(navEl) navEl.classList.add('active');
   window.scrollTo(0,0);
-  if(page==='admin') renderAdminTab('dashboard');
+}
+function adminLogout(){
+  sessionStorage.removeItem('bp_auth');
+  showPage('home');
+  showToast('Logged out from admin panel.');
 }
 function submitContact(){ showToast('Message sent! We\'ll reply within 24 hours.'); }
 function showToast(msg){
