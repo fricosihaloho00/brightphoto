@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brightphoto — Photography Studio · East Jakarta</title>
+  <meta name="description" content="Professional photography studio at White House Maja, East Jakarta. Specializing in weddings, portraits, and commercial photography.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/tabler-icons.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fff; color: #1a1a1a; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; border-bottom: 0.5px solid #e0e0e0; position: sticky; top: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(8px); z-index: 100; }
+    .nav-logo { font-size: 18px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
+    .nav-logo em { font-style: italic; font-weight: 300; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { font-size: 13px; color: #666; text-decoration: none; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: #1a1a1a; }
+    .nav-cta { font-size: 12px; padding: 8px 20px; border: 0.5px solid #1a1a1a; background: transparent; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s; }
+    .nav-cta:hover { background: #1a1a1a; color: #fff; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .hero { height: calc(100vh - 61px); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: #f5f4f0; }
+    .hero-bg { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; opacity: 0.35; }
+    .hero-tile { background: #c8c4b8; }
+    .hero-tile:nth-child(2) { background: #b8b2a8; }
+    .hero-tile:nth-child(3) { background: #d0ccc4; }
+    .hero-content { position: relative; text-align: center; z-index: 2; }
+    .hero-eyebrow { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #888; margin-bottom: 20px; }
+    .hero-title { font-size: 72px; font-weight: 300; line-height: 1.1; letter-spacing: -2px; margin-bottom: 24px; }
+    .hero-title em { font-style: italic; font-weight: 300; }
+    .hero-sub { font-size: 15px; color: #666; max-width: 360px; line-height: 1.6; margin: 0 auto 40px; }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; }
+    .btn-primary { padding: 14px 36px; background: #1a1a1a; color: #fff; border: none; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.8; }
+    .btn-secondary { padding: 14px 36px; background: transparent; color: #1a1a1a; border: 0.5px solid #1a1a1a; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+    .btn-secondary:hover { background: #1a1a1a; color: #fff; }
+    .cat-strip { padding: 32px 48px; border-bottom: 0.5px solid #e0e0e0; display: flex; gap: 0; overflow-x: auto; }
+    .cat-chip { padding: 8px 20px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: 0.5px solid transparent; color: #888; white-space: nowrap; transition: all 0.2s; }
+    .cat-chip:hover, .cat-chip.active { border-color: #1a1a1a; color: #1a1a1a; }
+    .gallery-section { padding: 48px; }
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px; }
+    .section-title { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #888; }
+    .section-count { font-size: 13px; color: #bbb; }
+    .gallery-grid { columns: 3; gap: 8px; }
+    .gallery-placeholder { width: 100%; break-inside: avoid; margin-bottom: 8px; display: flex; align-items: flex-end; cursor: pointer; overflow: hidden; position: relative; transition: all 0.3s; }
+    .gallery-placeholder:hover { opacity: 0.88; }
+    .gallery-placeholder .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background 0.3s; }
+    .gallery-placeholder:hover .overlay { background: rgba(0,0,0,0.1); }
+    .cat-badge { position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,0.9); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; color: #333; }
+    .about-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 80vh; }
+    .about-visual { background: #ede9e3; display: flex; align-items: center; justify-content: center; min-height: 500px; }
+    .about-visual-inner { width: 200px; height: 260px; background: #d4d0c8; position: relative; }
+    .about-visual-inner::after { content: ''; position: absolute; top: 16px; left: 16px; right: -16px; bottom: -16px; border: 0.5px solid #c0bcb4; }
+    .about-text { padding: 80px 64px; display: flex; flex-direction: column; justify-content: center; }
+    .about-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #aaa; margin-bottom: 24px; }
+    .about-title { font-size: 42px; font-weight: 300; line-height: 1.2; letter-spacing: -1px; margin-bottom: 24px; }
+    .about-body { font-size: 15px; color: #666; line-height: 1.8; margin-bottom: 32px; }
+    .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; border-top: 0.5px solid #e0e0e0; padding-top: 32px; }
+    .stat-num { font-size: 32px; font-weight: 300; margin-bottom: 4px; }
+    .stat-label { font-size: 11px; color: #aaa; letter-spacing: 1px; text-transform: uppercase; }
+    .blog-section { padding: 64px 48px; }
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; }
+    .blog-card { cursor: pointer; }
+    .blog-thumb { height: 220px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 12px; letter-spacing: 1px; }
+    .blog-date { font-size: 11px; color: #aaa; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+    .blog-title { font-size: 17px; font-weight: 400; line-height: 1.4; margin-bottom: 10px; }
+    .blog-excerpt { font-size: 13px; color: #888; line-height: 1.6; }
+    .contact-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh; }
+    .contact-info { padding: 80px 64px; background: #f5f4f0; }
+    .contact-form-wrap { padding: 80px 64px; }
+    .contact-title { font-size: 40px; font-weight: 300; letter-spacing: -1px; margin-bottom: 16px; }
+    .contact-sub { font-size: 14px; color: #888; line-height: 1.7; margin-bottom: 48px; }
+    .info-item { margin-bottom: 28px; }
+    .info-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #aaa; margin-bottom: 4px; }
+    .info-value { font-size: 15px; color: #333; line-height: 1.6; }
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; }
+    .form-input { width: 100%; padding: 12px 0; border: none; border-bottom: 0.5px solid #ccc; font-size: 15px; font-family: inherit; background: transparent; outline: none; transition: border-color 0.2s; }
+    .form-input:focus { border-bottom-color: #1a1a1a; }
+    .form-select { width: 100%; padding: 12px 0; border: none; border-bottom: 0.5px solid #ccc; font-size: 15px; font-family: inherit; background: transparent; outline: none; }
+    .form-textarea { width: 100%; padding: 12px 0; border: none; border-bottom: 0.5px solid #ccc; font-size: 15px; font-family: inherit; background: transparent; outline: none; resize: none; min-height: 80px; }
+    .form-submit { margin-top: 32px; width: 100%; padding: 14px; background: #1a1a1a; color: #fff; border: none; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; }
+    .form-submit:hover { opacity: 0.8; }
+    .wa-btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; padding: 12px 24px; background: #25D366; color: #fff; border: none; font-size: 13px; letter-spacing: 1px; cursor: pointer; border-radius: 2px; text-decoration: none; transition: opacity 0.2s; }
+    .wa-btn:hover { opacity: 0.85; }
+    .admin-layout { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 61px); }
+    .admin-sidebar { background: #1a1a1a; padding: 32px 0; }
+    .admin-brand { padding: 0 24px 32px; font-size: 12px; letter-spacing: 2px; color: #888; text-transform: uppercase; border-bottom: 0.5px solid #333; margin-bottom: 16px; }
+    .admin-menu-item { padding: 12px 24px; font-size: 13px; color: #888; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.2s; letter-spacing: 0.5px; }
+    .admin-menu-item:hover, .admin-menu-item.active { color: #fff; background: rgba(255,255,255,0.06); }
+    .admin-menu-item i { font-size: 16px; }
+    .admin-content { padding: 40px; background: #f9f8f6; overflow-y: auto; }
+    .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+    .admin-title { font-size: 22px; font-weight: 400; }
+    .admin-subtitle { font-size: 13px; color: #888; margin-top: 2px; }
+    .admin-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+    .admin-stat-card { background: #fff; border: 0.5px solid #e8e8e8; border-radius: 8px; padding: 20px; }
+    .admin-stat-num { font-size: 28px; font-weight: 300; margin-bottom: 4px; }
+    .admin-stat-label { font-size: 12px; color: #aaa; letter-spacing: 0.5px; }
+    .admin-stat-change { font-size: 11px; color: #4CAF50; margin-top: 8px; }
+    .upload-zone { border: 1.5px dashed #ccc; border-radius: 8px; padding: 48px; text-align: center; background: #fff; cursor: pointer; transition: all 0.2s; margin-bottom: 24px; }
+    .upload-zone:hover { border-color: #1a1a1a; background: #f9f8f6; }
+    .upload-form { background: #fff; border: 0.5px solid #e8e8e8; border-radius: 8px; padding: 28px; }
+    .upload-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .upload-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #888; display: block; margin-bottom: 6px; }
+    .upload-input { width: 100%; padding: 10px 12px; border: 0.5px solid #e0e0e0; border-radius: 4px; font-size: 14px; font-family: inherit; background: #fff; outline: none; transition: border-color 0.2s; }
+    .upload-input:focus { border-color: #1a1a1a; }
+    .upload-select { width: 100%; padding: 10px 12px; border: 0.5px solid #e0e0e0; border-radius: 4px; font-size: 14px; font-family: inherit; background: #fff; outline: none; }
+    .upload-btn { margin-top: 20px; padding: 12px 32px; background: #1a1a1a; color: #fff; border: none; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border-radius: 4px; }
+    .admin-table-wrap { background: #fff; border: 0.5px solid #e8e8e8; border-radius: 8px; overflow: hidden; }
+    .admin-table-header { padding: 16px 20px; border-bottom: 0.5px solid #e8e8e8; display: flex; align-items: center; justify-content: space-between; }
+    .admin-table-title { font-size: 14px; font-weight: 500; }
+    .admin-table { width: 100%; border-collapse: collapse; }
+    .admin-table th { padding: 10px 16px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #aaa; text-align: left; border-bottom: 0.5px solid #e8e8e8; background: #fafaf8; }
+    .admin-table td { padding: 12px 16px; font-size: 13px; border-bottom: 0.5px solid #f0f0f0; color: #444; vertical-align: middle; }
+    .admin-table tr:last-child td { border-bottom: none; }
+    .tag { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.5px; }
+    .tag-wedding { background: #fdf0f4; color: #c0486e; }
+    .tag-baby { background: #f0f7ff; color: #2066b0; }
+    .tag-prewedding { background: #f5f0fd; color: #7040b8; }
+    .tag-family { background: #f0fdf4; color: #2e7d52; }
+    .tag-portrait { background: #fffbf0; color: #b06020; }
+    .tag-commercial { background: #f4f4f4; color: #555; }
+    .action-btn { padding: 4px 12px; font-size: 11px; border: 0.5px solid #e0e0e0; background: #fff; cursor: pointer; border-radius: 3px; color: #666; transition: all 0.2s; }
+    .action-btn:hover { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .action-btn.danger:hover { background: #e24b4a; border-color: #e24b4a; }
+    footer { background: #1a1a1a; color: #888; padding: 48px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+    .footer-brand { font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: #fff; margin-bottom: 12px; }
+    .footer-brand em { font-style: italic; font-weight: 300; }
+    .footer-desc { font-size: 13px; line-height: 1.7; }
+    .footer-heading { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #555; margin-bottom: 16px; }
+    .footer-link { display: block; font-size: 13px; color: #888; text-decoration: none; margin-bottom: 8px; cursor: pointer; transition: color 0.2s; }
+    .footer-link:hover { color: #fff; }
+    .footer-bottom { background: #111; padding: 16px 48px; font-size: 12px; color: #555; display: flex; justify-content: space-between; }
+    .toast { position: fixed; bottom: 32px; right: 32px; background: #1a1a1a; color: #fff; padding: 12px 24px; font-size: 13px; border-radius: 4px; transform: translateY(80px); opacity: 0; transition: all 0.3s; z-index: 999; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero-title { font-size: 40px; }
+      .gallery-grid { columns: 2; }
+      .about-section, .contact-section { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr; gap: 24px; padding: 32px 20px; }
+      .gallery-section, .blog-section { padding: 24px 20px; }
+      .about-text, .contact-info, .contact-form-wrap { padding: 40px 24px; }
+      .admin-layout { grid-template-columns: 1fr; }
+      .admin-sidebar { display: none; }
+      .admin-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Bright<em>photo</em></div>
+  <div class="nav-links">
+    <a onclick="showPage('home')" class="active" id="nav-home">Gallery</a>
+    <a onclick="showPage('about')" id="nav-about">About</a>
+    <a onclick="showPage('blog')" id="nav-blog">Journal</a>
+    <a onclick="showPage('contact')" id="nav-contact">Contact</a>
+  </div>
+  <button class="nav-cta" onclick="showPage('admin')">Admin ↗</button>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-bg">
+      <div class="hero-tile" style="height:100%;"></div>
+      <div class="hero-tile" style="height:100%;"></div>
+      <div class="hero-tile" style="height:100%;"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Photography Studio · East Jakarta</div>
+      <h1 class="hero-title">Capturing<br><em>moments</em><br>that matter</h1>
+      <p class="hero-sub">Professional photography for weddings, portraits, and life's most precious milestones.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('contact')">Book a Session</button>
+        <button class="btn-secondary" onclick="scrollToGallery()">View Portfolio</button>
+      </div>
+    </div>
+  </div>
+  <div class="cat-strip" id="gallery-section">
+    <div class="cat-chip active" onclick="filterGallery('all', this)">All Work</div>
+    <div class="cat-chip" onclick="filterGallery('wedding', this)">Wedding</div>
+    <div class="cat-chip" onclick="filterGallery('prewedding', this)">Pre-Wedding</div>
+    <div class="cat-chip" onclick="filterGallery('baby', this)">Baby & Newborn</div>
+    <div class="cat-chip" onclick="filterGallery('family', this)">Family</div>
+    <div class="cat-chip" onclick="filterGallery('portrait', this)">Portrait</div>
+    <div class="cat-chip" onclick="filterGallery('commercial', this)">Commercial</div>
+  </div>
+  <div class="gallery-section">
+    <div class="section-header">
+      <span class="section-title">Selected Works</span>
+      <span class="section-count" id="gallery-count">18 photos</span>
+    </div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </div>
+  <footer>
+    <div>
+      <div class="footer-brand">Bright<em>photo</em></div>
+      <p class="footer-desc">Professional photography studio at White House Maja, East Jakarta. Specializing in weddings, portraits, and commercial photography.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Services</div>
+      <a class="footer-link">Wedding</a>
+      <a class="footer-link">Pre-Wedding</a>
+      <a class="footer-link">Baby & Newborn</a>
+      <a class="footer-link">Portrait</a>
+    </div>
+    <div>
+      <div class="footer-heading">Studio</div>
+      <a class="footer-link" onclick="showPage('about')">About</a>
+      <a class="footer-link" onclick="showPage('blog')">Journal</a>
+      <a class="footer-link" onclick="showPage('contact')">Contact</a>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <p class="footer-desc" style="font-size:13px;">Jalan Maja No.47B Ceger,<br>Cipayung, East Jakarta<br><br>saya@fricosihaloho.com<br>0813-8388-3068</p>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <span>© 2025 Brightphoto. All rights reserved.</span>
+    <span>Photography · Art · Moments</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <div class="about-section">
+    <div class="about-visual">
+      <div style="text-align:center;">
+        <div class="about-visual-inner"></div>
+        <p style="font-size:11px; color:#aaa; letter-spacing:2px; text-transform:uppercase; margin-top:24px;">Lead Photographer</p>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="about-eyebrow">About the Studio</div>
+      <h2 class="about-title">We tell stories<br>through light</h2>
+      <p class="about-body">Brightphoto is a photography studio based at White House Maja, East Jakarta. From intimate weddings to newborn sessions, we bring artistry and care to every frame.<br><br>Founded with a belief that great photography is about emotion, not just technique — we work closely with every client to understand their vision.</p>
+      <button class="btn-primary" onclick="showPage('contact')">Work with Us</button>
+      <div class="about-stats">
+        <div><div class="stat-num">8+</div><div class="stat-label">Years Active</div></div>
+        <div><div class="stat-num">320</div><div class="stat-label">Sessions Done</div></div>
+        <div><div class="stat-num">98%</div><div class="stat-label">Satisfaction</div></div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div><div class="footer-brand">Bright<em>photo</em></div><p class="footer-desc">White House Maja, East Jakarta</p></div>
+    <div></div><div></div>
+    <div><div class="footer-heading">Contact</div><p class="footer-desc" style="font-size:13px;">saya@fricosihaloho.com<br>0813-8388-3068</p></div>
+  </footer>
+  <div class="footer-bottom"><span>© 2025 Brightphoto</span></div>
+</div>
+
+<!-- BLOG -->
+<div class="page" id="page-blog">
+  <div class="blog-section">
+    <div class="section-header">
+      <span class="section-title">Studio Journal</span>
+      <span class="section-count">Notes & Stories</span>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:#e8e4dc;"><span style="font-size:11px; letter-spacing:1px; color:#b0a898;">WEDDING STORY</span></div>
+        <div class="blog-date">May 2025</div>
+        <div class="blog-title">Anisa & Reza — A Sundanese Ceremony in Bandung</div>
+        <div class="blog-excerpt">We had the privilege of documenting a beautiful traditional Sundanese wedding ceremony at the family's ancestral home.</div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:#dfe8e4;"><span style="font-size:11px; letter-spacing:1px; color:#90a89a;">BEHIND THE LENS</span></div>
+        <div class="blog-date">April 2025</div>
+        <div class="blog-title">Golden Hour: Why We Plan Every Session Around the Light</div>
+        <div class="blog-excerpt">Light is everything. Here's how we approach outdoor sessions differently depending on the time of day.</div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:#e4dfe8;"><span style="font-size:11px; letter-spacing:1px; color:#9890a8;">NEWBORN TIPS</span></div>
+        <div class="blog-date">March 2025</div>
+        <div class="blog-title">How to Prepare for Your Newborn Photography Session</div>
+        <div class="blog-excerpt">The first weeks go by so fast. Here's our guide to getting the most out of your baby's first photo session.</div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div><div class="footer-brand">Bright<em>photo</em></div></div>
+    <div></div><div></div>
+    <div><div class="footer-heading">Contact</div><p class="footer-desc" style="font-size:13px;">saya@fricosihaloho.com<br>0813-8388-3068</p></div>
+  </footer>
+  <div class="footer-bottom"><span>© 2025 Brightphoto</span></div>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="page-contact">
+  <div class="contact-section">
+    <div class="contact-info">
+      <div class="about-eyebrow">Get in Touch</div>
+      <h2 class="contact-title">Let's create<br>something beautiful</h2>
+      <p class="contact-sub">Ready to book a session or just want to chat about your vision? We'd love to hear from you.</p>
+      <div class="info-item">
+        <div class="info-label">Studio Location</div>
+        <div class="info-value">White House Maja<br>Jalan Maja No.47B Ceger<br>Cipayung, East Jakarta</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Email</div>
+        <div class="info-value"><a href="mailto:saya@fricosihaloho.com" style="color:#333; text-decoration:none; border-bottom:0.5px solid #ccc;">saya@fricosihaloho.com</a></div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">WhatsApp</div>
+        <div class="info-value">0813-8388-3068</div>
+        <a class="wa-btn" href="https://wa.me/6281383883068" target="_blank">
+          <i class="ti ti-brand-whatsapp" aria-hidden="true" style="font-size:18px;"></i>
+          Chat on WhatsApp
+        </a>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Studio Hours</div>
+        <div class="info-value">Mon – Sat, 09:00 – 18:00 WIB</div>
+      </div>
+    </div>
+    <div class="contact-form-wrap">
+      <div style="margin-bottom:32px;"><h3 style="font-size:20px; font-weight:400; margin-bottom:8px;">Booking Inquiry</h3><p style="font-size:13px; color:#888;">Fill in the form and we'll get back within 24 hours.</p></div>
+      <div class="form-group"><label class="form-label">Your Name</label><input class="form-input" type="text" placeholder="Nama lengkap"></div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="email@example.com"></div>
+      <div class="form-group"><label class="form-label">Phone / WhatsApp</label><input class="form-input" type="text" placeholder="+62 ..."></div>
+      <div class="form-group"><label class="form-label">Session Type</label>
+        <select class="form-select"><option>Wedding Photography</option><option>Pre-Wedding</option><option>Baby & Newborn</option><option>Family Portrait</option><option>Individual Portrait</option><option>Commercial</option></select>
+      </div>
+      <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Tell us about your session..."></textarea></div>
+      <button class="form-submit" onclick="submitContact()">Send Inquiry</button>
+    </div>
+  </div>
+  <footer>
+    <div><div class="footer-brand">Bright<em>photo</em></div><p class="footer-desc">White House Maja, Jalan Maja No.47B Ceger, Cipayung, East Jakarta</p></div>
+    <div></div><div></div>
+    <div><div class="footer-heading">Contact</div><p class="footer-desc" style="font-size:13px;">saya@fricosihaloho.com<br>0813-8388-3068</p></div>
+  </footer>
+  <div class="footer-bottom"><span>© 2025 Brightphoto</span></div>
+</div>
+
+<!-- ADMIN -->
+<div class="page" id="page-admin">
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <div class="admin-brand">Brightphoto Admin</div>
+      <div class="admin-menu-item active" onclick="showAdminTab('dashboard', this)"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+      <div class="admin-menu-item" onclick="showAdminTab('upload', this)"><i class="ti ti-upload"></i> Upload Photos</div>
+      <div class="admin-menu-item" onclick="showAdminTab('manage', this)"><i class="ti ti-photo"></i> Manage Gallery</div>
+      <div class="admin-menu-item" onclick="showAdminTab('categories', this)"><i class="ti ti-tag"></i> Categories</div>
+      <div class="admin-menu-item" onclick="showAdminTab('blog', this)"><i class="ti ti-pencil"></i> Blog Posts</div>
+      <div class="admin-menu-item" onclick="showAdminTab('inquiries', this)"><i class="ti ti-mail"></i> Inquiries</div>
+      <div style="margin-top:32px; border-top:0.5px solid #333; padding-top:16px;">
+        <div class="admin-menu-item" onclick="showPage('home')"><i class="ti ti-arrow-left"></i> Back to Site</div>
+      </div>
+    </div>
+    <div class="admin-content" id="admin-content"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const galleryData = [
+  {id:1,title:'Anisa & Reza',category:'wedding',color:'#e8e4dc',h:280},
+  {id:2,title:'Baby Mika — 14 days',category:'baby',color:'#dfe8f0',h:220},
+  {id:3,title:'Pre-Wedding Bali',category:'prewedding',color:'#e4dfe8',h:320},
+  {id:4,title:'Keluarga Sutanto',category:'family',color:'#e8ede4',h:240},
+  {id:5,title:'Diana — Corporate',category:'portrait',color:'#ede8e4',h:300},
+  {id:6,title:'Product Campaign',category:'commercial',color:'#e4e8ed',h:200},
+  {id:7,title:'Indra & Siti',category:'wedding',color:'#ede4e8',h:260},
+  {id:8,title:'Baby Zara — 7 days',category:'baby',color:'#e4ede8',h:280},
+  {id:9,title:'Pre-Wedding Lombok',category:'prewedding',color:'#e8e4de',h:220},
+  {id:10,title:'Keluarga Pranoto',category:'family',color:'#dee4e8',h:340},
+  {id:11,title:'Raka — Actor',category:'portrait',color:'#e8dfe4',h:260},
+  {id:12,title:'F&B Brand Shoot',category:'commercial',color:'#dfe8e4',h:200},
+  {id:13,title:'Budi & Wulan',category:'wedding',color:'#e4e8de',h:300},
+  {id:14,title:'Baby Nathan — Newborn',category:'baby',color:'#e8e4e0',h:240},
+  {id:15,title:'Pre-Wedding Yogya',category:'prewedding',color:'#e0e4e8',h:280},
+  {id:16,title:'Keluarga Hassan',category:'family',color:'#e8e0e4',h:220},
+  {id:17,title:'Mira — Headshot',category:'portrait',color:'#e4e0e8',h:300},
+  {id:18,title:'Jewelry Campaign',category:'commercial',color:'#e0e8e4',h:260},
+];
+const tagMap={wedding:'tag-wedding',baby:'tag-baby',prewedding:'tag-prewedding',family:'tag-family',portrait:'tag-portrait',commercial:'tag-commercial'};
+const tagLabel={wedding:'Wedding',baby:'Baby',prewedding:'Pre-Wedding',family:'Family',portrait:'Portrait',commercial:'Commercial'};
+
+function renderGallery(filter){
+  const items=filter==='all'?galleryData:galleryData.filter(g=>g.category===filter);
+  document.getElementById('gallery-count').textContent=items.length+' photos';
+  document.getElementById('gallery-grid').innerHTML=items.map(g=>`
+    <div class="gallery-placeholder" style="height:${g.h}px;background:${g.color};">
+      <div class="overlay"></div>
+      <span class="cat-badge">${tagLabel[g.category]}</span>
+      <span style="font-size:11px;letter-spacing:1px;color:#b0a898;position:absolute;bottom:12px;left:12px;">${g.title}</span>
+    </div>`).join('');
+}
+function filterGallery(cat,el){
+  document.querySelectorAll('.cat-chip').forEach(c=>c.classList.remove('active'));
+  if(el) el.classList.add('active');
+  renderGallery(cat);
+}
+function scrollToGallery(){ document.getElementById('gallery-section').scrollIntoView({behavior:'smooth'}); }
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  const navEl=document.getElementById('nav-'+page);
+  if(navEl) navEl.classList.add('active');
+  window.scrollTo(0,0);
+  if(page==='admin') renderAdminTab('dashboard');
+}
+function submitContact(){ showToast('Message sent! We\'ll reply within 24 hours.'); }
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+const adminTabs={
+  dashboard:()=>`<div class="admin-header"><div><div class="admin-title">Dashboard</div><div class="admin-subtitle">Overview of Brightphoto studio</div></div></div><div class="admin-stats"><div class="admin-stat-card"><div class="admin-stat-num">18</div><div class="admin-stat-label">Total Photos</div><div class="admin-stat-change">↑ 3 this month</div></div><div class="admin-stat-card"><div class="admin-stat-num">6</div><div class="admin-stat-label">Categories</div></div><div class="admin-stat-card"><div class="admin-stat-num">3</div><div class="admin-stat-label">Blog Posts</div></div><div class="admin-stat-card"><div class="admin-stat-num">5</div><div class="admin-stat-label">New Inquiries</div><div class="admin-stat-change">↑ 2 today</div></div></div><div class="admin-table-wrap"><div class="admin-table-header"><span class="admin-table-title">Recent Photos</span><button class="action-btn" onclick="showAdminTab('upload',null)">+ Upload New</button></div><table class="admin-table"><thead><tr><th>Title</th><th>Category</th><th>Added</th><th>Actions</th></tr></thead><tbody>${galleryData.slice(0,6).map(g=>`<tr><td>${g.title}</td><td><span class="tag ${tagMap[g.category]}">${tagLabel[g.category]}</span></td><td style="color:#aaa;">May 2025</td><td><button class="action-btn">Edit</button> <button class="action-btn danger">Delete</button></td></tr>`).join('')}</tbody></table></div>`,
+  upload:()=>`<div class="admin-header"><div><div class="admin-title">Upload Photos</div><div class="admin-subtitle">Add new photos to the gallery</div></div></div><div class="upload-zone" onclick="showToast('File picker opened (demo mode)')"><div><i class="ti ti-cloud-upload" style="font-size:40px;color:#ccc;"></i></div><div style="font-size:14px;color:#888;margin-top:12px;">Click to upload or drag & drop</div><div style="font-size:12px;color:#bbb;margin-top:4px;">JPG, PNG, WEBP up to 20MB</div></div><div class="upload-form"><div class="upload-form-grid"><div><label class="upload-label">Photo Title</label><input class="upload-input" type="text" placeholder="e.g. Anisa & Reza Wedding"></div><div><label class="upload-label">Category</label><select class="upload-select"><option>Wedding</option><option>Pre-Wedding</option><option>Baby & Newborn</option><option>Family</option><option>Portrait</option><option>Commercial</option></select></div><div><label class="upload-label">Date Taken</label><input class="upload-input" type="date"></div><div><label class="upload-label">Client Name</label><input class="upload-input" type="text" placeholder="Optional"></div></div><button class="upload-btn" onclick="showToast('Uploaded!')">Upload Photo</button></div>`,
+  manage:()=>`<div class="admin-header"><div><div class="admin-title">Manage Gallery</div></div></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Preview</th><th>Title</th><th>Category</th><th>Actions</th></tr></thead><tbody>${galleryData.map(g=>`<tr><td><div style="width:48px;height:36px;background:${g.color};border-radius:3px;"></div></td><td>${g.title}</td><td><span class="tag ${tagMap[g.category]}">${tagLabel[g.category]}</span></td><td><button class="action-btn">Edit</button> <button class="action-btn danger">Remove</button></td></tr>`).join('')}</tbody></table></div>`,
+  categories:()=>`<div class="admin-header"><div><div class="admin-title">Categories</div></div><button class="upload-btn" style="margin-top:0;padding:10px 20px;">+ Add</button></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Category</th><th>Count</th><th>Actions</th></tr></thead><tbody>${Object.entries(tagLabel).map(([k,v])=>`<tr><td><span class="tag ${tagMap[k]}">${v}</span></td><td>${galleryData.filter(g=>g.category===k).length}</td><td><button class="action-btn">Rename</button> <button class="action-btn danger">Delete</button></td></tr>`).join('')}</tbody></table></div>`,
+  blog:()=>`<div class="admin-header"><div><div class="admin-title">Blog Posts</div></div><button class="upload-btn" style="margin-top:0;padding:10px 20px;">+ New Post</button></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Title</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody><tr><td>Anisa & Reza — A Sundanese Ceremony</td><td style="color:#aaa;">May 2025</td><td><span style="font-size:11px;color:#4CAF50;">● Published</span></td><td><button class="action-btn">Edit</button></td></tr><tr><td>Golden Hour: Planning Sessions Around Light</td><td style="color:#aaa;">Apr 2025</td><td><span style="font-size:11px;color:#4CAF50;">● Published</span></td><td><button class="action-btn">Edit</button></td></tr></tbody></table></div>`,
+  inquiries:()=>`<div class="admin-header"><div><div class="admin-title">Booking Inquiries</div></div></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Name</th><th>Session</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody><tr><td>Dewi Santoso</td><td><span class="tag tag-wedding">Wedding</span></td><td style="color:#aaa;">Today</td><td><span style="font-size:11px;color:#e8a020;">● New</span></td><td><button class="action-btn">Reply</button></td></tr><tr><td>Budi Pratama</td><td><span class="tag tag-prewedding">Pre-Wedding</span></td><td style="color:#aaa;">Yesterday</td><td><span style="font-size:11px;color:#e8a020;">● New</span></td><td><button class="action-btn">Reply</button></td></tr></tbody></table></div>`
+};
+function renderAdminTab(tab){ document.getElementById('admin-content').innerHTML=adminTabs[tab]?.()||''; }
+function showAdminTab(tab,el){
+  if(el){ document.querySelectorAll('.admin-menu-item').forEach(m=>m.classList.remove('active')); el.classList.add('active'); }
+  renderAdminTab(tab);
+}
+renderGallery('all');
+</script>
+</body>
+</html>
