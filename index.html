@@ -18,8 +18,6 @@
     .nav-cta{font-size:12px;padding:8px 20px;border:.5px solid #1a1a1a;background:transparent;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all .2s}
     .nav-cta:hover{background:#1a1a1a;color:#fff}
     .page{display:none}.page.active{display:block}
-
-    /* HERO */
     .hero{height:calc(100vh - 61px);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:#f5f4f0}
     .hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;opacity:.35}
     .hero-tile{background:#c8c4b8}.hero-tile:nth-child(2){background:#b8b2a8}.hero-tile:nth-child(3){background:#d0ccc4}
@@ -33,8 +31,6 @@
     .btn-primary:hover{opacity:.8}
     .btn-secondary{padding:14px 36px;background:transparent;color:#1a1a1a;border:.5px solid #1a1a1a;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s}
     .btn-secondary:hover{background:#1a1a1a;color:#fff}
-
-    /* GALLERY PUBLIC */
     .cat-strip{padding:32px 48px;border-bottom:.5px solid #e0e0e0;display:flex;gap:0;overflow-x:auto}
     .cat-chip{padding:8px 20px;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:.5px solid transparent;color:#888;white-space:nowrap;transition:all .2s}
     .cat-chip:hover,.cat-chip.active{border-color:#1a1a1a;color:#1a1a1a}
@@ -55,8 +51,6 @@
     .project-card-badge{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.9);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;color:#333}
     .project-card-count{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.5);font-size:11px;color:#fff;padding:3px 8px;border-radius:2px}
     .gallery-empty{padding:80px;text-align:center;color:#bbb;font-size:14px;letter-spacing:1px;grid-column:1/-1}
-
-    /* LIGHTBOX */
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:500;display:none;flex-direction:column}
     .lightbox.open{display:flex}
     .lb-header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;flex-shrink:0}
@@ -69,12 +63,9 @@
     .lb-img.fade{opacity:0}
     .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:none;color:#fff;font-size:24px;cursor:pointer;padding:16px 12px;transition:background .2s;border-radius:2px}
     .lb-nav:hover{background:rgba(255,255,255,.2)}
-    .lb-prev{left:16px}
-    .lb-next{right:16px}
-    .lb-footer{padding:16px 32px;display:flex;align-items:center;justify-content:center;gap:8px;flex-shrink:0}
+    .lb-prev{left:16px}.lb-next{right:16px}
+    .lb-footer{padding:16px 32px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .lb-counter{color:rgba(255,255,255,.5);font-size:13px}
-
-    /* ABOUT */
     .about-section{display:grid;grid-template-columns:1fr 1fr;min-height:80vh}
     .about-visual{background:#ede9e3;display:flex;align-items:center;justify-content:center;min-height:500px}
     .about-visual-inner{width:200px;height:260px;background:#d4d0c8;position:relative}
@@ -86,8 +77,6 @@
     .about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px;border-top:.5px solid #e0e0e0;padding-top:32px}
     .stat-num{font-size:32px;font-weight:300;margin-bottom:4px}
     .stat-label{font-size:11px;color:#aaa;letter-spacing:1px;text-transform:uppercase}
-
-    /* BLOG */
     .blog-section{padding:64px 48px}
     .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:40px}
     .blog-card{cursor:pointer}
@@ -95,8 +84,6 @@
     .blog-date{font-size:11px;color:#aaa;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
     .blog-title{font-size:17px;font-weight:400;line-height:1.4;margin-bottom:10px}
     .blog-excerpt{font-size:13px;color:#888;line-height:1.6}
-
-    /* CONTACT */
     .contact-section{display:grid;grid-template-columns:1fr 1fr;min-height:70vh}
     .contact-info{padding:80px 64px;background:#f5f4f0}
     .contact-form-wrap{padding:80px 64px}
@@ -115,8 +102,6 @@
     .form-submit:hover{opacity:.8}
     .wa-btn{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:12px 24px;background:#25D366;color:#fff;border:none;font-size:13px;letter-spacing:1px;cursor:pointer;border-radius:2px;text-decoration:none;transition:opacity .2s}
     .wa-btn:hover{opacity:.85}
-
-    /* ADMIN LOGIN */
     .admin-login-wrap{min-height:calc(100vh - 61px);display:flex;align-items:center;justify-content:center;background:#f5f4f0}
     .admin-login-card{background:#fff;border:.5px solid #e0e0e0;padding:48px;width:100%;max-width:400px}
     .admin-login-logo{font-size:16px;font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
@@ -129,8 +114,6 @@
     .admin-login-btn:hover{opacity:.8}
     .admin-login-error{font-size:13px;color:#e24b4a;margin-top:16px;text-align:center;min-height:20px}
     .admin-login-hint{font-size:12px;color:#bbb;text-align:center;margin-top:24px}
-
-    /* ADMIN */
     .admin-layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 61px)}
     .admin-sidebar{background:#1a1a1a;padding:32px 0;display:flex;flex-direction:column}
     .admin-brand{padding:0 24px 32px;font-size:12px;letter-spacing:2px;color:#888;text-transform:uppercase;border-bottom:.5px solid #333;margin-bottom:16px}
@@ -152,40 +135,32 @@
     table.atbl th{padding:10px 16px;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#aaa;text-align:left;border-bottom:.5px solid #e8e8e8;background:#fafaf8}
     table.atbl td{padding:12px 16px;font-size:13px;border-bottom:.5px solid #f0f0f0;color:#444;vertical-align:middle}
     table.atbl tr:last-child td{border-bottom:none}
-    .tag{display:inline-block;padding:2px 10px;border-radius:20px;font-size:11px;letter-spacing:.5px;background:#f0f0f0;color:#444}
+    .tag{display:inline-block;padding:2px 10px;border-radius:20px;font-size:11px;background:#f0f0f0;color:#444}
     .abtn{padding:4px 12px;font-size:11px;border:.5px solid #e0e0e0;background:#fff;cursor:pointer;border-radius:3px;color:#666;transition:all .2s}
     .abtn:hover{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
     .abtn.danger:hover{background:#e24b4a;border-color:#e24b4a}
     .abtn.primary{background:#1a1a1a;color:#fff;border-color:#1a1a1a;padding:8px 20px;font-size:12px;letter-spacing:1px}
     .abtn.primary:hover{opacity:.8}
-
-    /* UPLOAD */
-    .upload-drop{border:1.5px dashed #ccc;border-radius:8px;padding:48px;text-align:center;background:#fff;cursor:pointer;transition:all .2s;margin-bottom:24px;position:relative}
+    .upload-drop{border:1.5px dashed #ccc;border-radius:8px;padding:48px;text-align:center;background:#fff;cursor:pointer;transition:all .2s;margin-bottom:16px;position:relative}
     .upload-drop:hover,.upload-drop.dragover{border-color:#1a1a1a;background:#f9f8f6}
     .upload-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-    .upload-form-box{background:#fff;border:.5px solid #e8e8e8;border-radius:8px;padding:28px}
+    .upload-form-box{background:#fff;border:.5px solid #e8e8e8;border-radius:8px;padding:28px;margin-bottom:16px}
     .upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
     .ulbl{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#888;display:block;margin-bottom:6px}
     .uinput{width:100%;padding:10px 12px;border:.5px solid #e0e0e0;border-radius:4px;font-size:14px;font-family:inherit;background:#fff;outline:none;transition:border-color .2s}
     .uinput:focus{border-color:#1a1a1a}
-    .progress-bar{height:4px;background:#e0e0e0;border-radius:2px;margin-top:16px;display:none}
+    .progress-bar{height:4px;background:#e0e0e0;border-radius:2px;margin-top:12px}
     .progress-fill{height:100%;background:#1a1a1a;border-radius:2px;width:0;transition:width .3s}
-
-    /* COVER PICKER */
-    .cover-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:16px}
+    .cover-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:12px}
     .cover-item{position:relative;cursor:pointer;border-radius:4px;overflow:hidden;border:3px solid transparent;transition:border-color .2s;aspect-ratio:4/3}
     .cover-item img{width:100%;height:100%;object-fit:cover;display:block}
     .cover-item.selected{border-color:#1a1a1a}
-    .cover-item .cover-check{position:absolute;top:6px;right:6px;background:#1a1a1a;color:#fff;border-radius:50%;width:22px;height:22px;display:none;align-items:center;justify-content:center;font-size:12px}
+    .cover-check{position:absolute;top:5px;right:5px;background:#1a1a1a;color:#fff;border-radius:50%;width:20px;height:20px;display:none;align-items:center;justify-content:center;font-size:11px}
     .cover-item.selected .cover-check{display:flex}
-
-    /* MODAL */
     .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:flex;align-items:center;justify-content:center}
     .modal{background:#fff;padding:40px;width:100%;max-width:440px;border-radius:4px}
     .modal h3{font-size:18px;font-weight:400;margin-bottom:24px}
     .modal-btns{display:flex;gap:12px;margin-top:24px;justify-content:flex-end}
-
-    /* FOOTER */
     footer{background:#1a1a1a;color:#888;padding:48px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
     .footer-brand{font-size:18px;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:12px}
     .footer-brand em{font-style:italic;font-weight:300}
@@ -196,7 +171,6 @@
     .footer-bottom{background:#111;padding:16px 48px;font-size:12px;color:#555;display:flex;justify-content:space-between}
     .toast{position:fixed;bottom:32px;right:32px;background:#1a1a1a;color:#fff;padding:12px 24px;font-size:13px;border-radius:4px;transform:translateY(80px);opacity:0;transition:all .3s;z-index:999}
     .toast.show{transform:translateY(0);opacity:1}
-
     @media(max-width:768px){
       nav{padding:16px 20px}.nav-links{display:none}
       .hero-title{font-size:40px}
@@ -260,10 +234,7 @@
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
   <div class="lb-header">
-    <div>
-      <div class="lb-title" id="lb-title"></div>
-      <div class="lb-meta" id="lb-meta"></div>
-    </div>
+    <div><div class="lb-title" id="lb-title"></div><div class="lb-meta" id="lb-meta"></div></div>
     <button class="lb-close" onclick="closeLightbox()"><i class="ti ti-x"></i></button>
   </div>
   <div class="lb-main">
@@ -271,9 +242,7 @@
     <img class="lb-img" id="lb-img" src="" alt="">
     <button class="lb-nav lb-next" onclick="lbNav(1)"><i class="ti ti-chevron-right"></i></button>
   </div>
-  <div class="lb-footer">
-    <span class="lb-counter" id="lb-counter"></span>
-  </div>
+  <div class="lb-footer"><span class="lb-counter" id="lb-counter"></span></div>
 </div>
 
 <!-- ABOUT -->
@@ -391,8 +360,6 @@ const CLOUD_NAME='dfavyhpji';
 const UPLOAD_PRESET='brightphoto_upload';
 const ADMIN_HASH='90f174f185af053f1081d005626b9e86e47aab193eda767438ed6ea64edce595';
 
-// ── STORAGE ──────────────────────────────────────────────
-// Projects: [{id, title, category, client, date, coverIndex, photos:[{url}], uploaded}]
 function loadProjects(){try{return JSON.parse(localStorage.getItem('bp_projects')||'[]')}catch{return[]}}
 function saveProjects(d){localStorage.setItem('bp_projects',JSON.stringify(d))}
 function loadCats(){
@@ -401,7 +368,6 @@ function loadCats(){
 }
 function saveCats(d){localStorage.setItem('bp_cats',JSON.stringify(d))}
 
-// ── GALLERY PUBLIC ────────────────────────────────────────
 function renderCatChips(){
   const cats=loadCats();
   document.getElementById('cat-chips-dynamic').innerHTML=cats.map(c=>`<div class="cat-chip" onclick="filterGallery('${c}',this)">${c}</div>`).join('');
@@ -414,10 +380,7 @@ function renderGallery(filter){
   const projects=loadProjects();
   const items=filter==='all'?projects:projects.filter(p=>p.category===filter);
   document.getElementById('gallery-count').textContent=items.length+' project'+(items.length!==1?'s':'');
-  if(!items.length){
-    document.getElementById('projects-grid').innerHTML='<div class="gallery-empty">No projects yet in this category.</div>';
-    return;
-  }
+  if(!items.length){document.getElementById('projects-grid').innerHTML='<div class="gallery-empty">No projects yet in this category.</div>';return;}
   document.getElementById('projects-grid').innerHTML=items.map(p=>{
     const cover=p.photos[p.coverIndex||0]?.url||p.photos[0]?.url||'';
     return `<div class="project-card" onclick="openLightbox('${p.id}')">
@@ -440,8 +403,7 @@ function filterGallery(cat,el){
 }
 function scrollToGallery(){document.getElementById('gallery-section').scrollIntoView({behavior:'smooth'});}
 
-// ── LIGHTBOX ─────────────────────────────────────────────
-let lbProject=null, lbIndex=0;
+let lbProject=null,lbIndex=0;
 function openLightbox(projectId){
   const projects=loadProjects();
   lbProject=projects.find(p=>p.id===projectId);
@@ -456,20 +418,11 @@ function openLightbox(projectId){
 function lbShow(){
   const img=document.getElementById('lb-img');
   img.classList.add('fade');
-  setTimeout(()=>{
-    img.src=lbProject.photos[lbIndex].url;
-    img.classList.remove('fade');
-  },200);
+  setTimeout(()=>{img.src=lbProject.photos[lbIndex].url;img.classList.remove('fade');},200);
   document.getElementById('lb-counter').textContent=(lbIndex+1)+' / '+lbProject.photos.length;
 }
-function lbNav(dir){
-  lbIndex=(lbIndex+dir+lbProject.photos.length)%lbProject.photos.length;
-  lbShow();
-}
-function closeLightbox(){
-  document.getElementById('lightbox').classList.remove('open');
-  document.body.style.overflow='';
-}
+function lbNav(dir){lbIndex=(lbIndex+dir+lbProject.photos.length)%lbProject.photos.length;lbShow();}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',e=>{
   const lb=document.getElementById('lightbox');
   if(!lb.classList.contains('open')) return;
@@ -478,7 +431,6 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape') closeLightbox();
 });
 
-// ── AUTH ─────────────────────────────────────────────────
 async function sha256(msg){
   const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(msg));
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -501,7 +453,6 @@ async function attemptLogin(){
 }
 function adminLogout(){sessionStorage.removeItem('bp_auth');showPage('home');showToast('Logged out.');}
 
-// ── NAVIGATION ────────────────────────────────────────────
 function _showAdminPanel(){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-admin').classList.add('active');
@@ -524,7 +475,6 @@ function showPage(page){
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 function submitContact(){showToast('Message sent! We\'ll reply within 24 hours.');}
 
-// ── ADMIN TABS ────────────────────────────────────────────
 function showAdminTab(tab,el){
   if(el){document.querySelectorAll('.admin-menu-item').forEach(m=>m.classList.remove('active'));el.classList.add('active');}
   renderAdminTab(tab);
@@ -560,17 +510,14 @@ function tabDashboard(){
   </div>`;
 }
 
-// ── UPLOAD ────────────────────────────────────────────────
-let bulkFiles=[], uploadedPhotos=[], currentUploadStep=1;
+let bulkFiles=[],uploadedPhotos=[],selectedCoverIndex=0;
 
 function tabUpload(){
   const cats=loadCats();
   return `
-  <div class="admin-hdr"><div><div class="admin-ttl">Upload New Project</div><div class="admin-sub">Step 1: Project details → Step 2: Upload photos → Step 3: Pick cover</div></div></div>
-
-  <!-- STEP 1: Project details -->
-  <div id="step1" class="upload-form-box" style="margin-bottom:16px">
-    <div style="font-size:13px;font-weight:500;color:#aaa;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px">Step 1 — Project Details</div>
+  <div class="admin-hdr"><div><div class="admin-ttl">Upload New Project</div><div class="admin-sub">Step 1: Details → Step 2: Upload photos → Step 3: Pick cover</div></div></div>
+  <div class="upload-form-box" id="step1">
+    <div style="font-size:11px;font-weight:500;color:#aaa;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px">Step 1 — Project Details</div>
     <div class="upload-grid">
       <div style="grid-column:1/-1"><label class="ulbl">Project Name</label><input class="uinput" id="up-title" type="text" placeholder="e.g. Anisa & Reza Wedding"></div>
       <div><label class="ulbl">Category</label><select class="uinput" id="up-cat">${cats.map(c=>`<option>${c}</option>`).join('')}</select></div>
@@ -579,20 +526,18 @@ function tabUpload(){
     </div>
     <button class="abtn primary" style="margin-top:20px" onclick="goStep2()">Next: Upload Photos →</button>
   </div>
-
-  <!-- STEP 2: Upload -->
   <div id="step2" style="display:none">
     <div class="upload-drop" id="drop-zone">
       <input type="file" id="file-input" accept="image/*" multiple onchange="onFilesSelected(this.files)">
       <i class="ti ti-cloud-upload" style="font-size:40px;color:#ccc"></i>
       <div style="font-size:14px;color:#888;margin-top:12px">Click to select photos or drag & drop</div>
-      <div style="font-size:12px;color:#bbb;margin-top:4px">Select multiple files · JPG, PNG, WEBP · auto-compressed if over 10MB</div>
+      <div style="font-size:12px;color:#bbb;margin-top:4px">Multiple files · JPG PNG WEBP · auto-compressed if over 10MB</div>
     </div>
     <div id="bulk-queue"></div>
-    <div class="upload-form-box" style="margin-top:16px">
+    <div class="upload-form-box">
       <div id="bulk-progress-wrap" style="display:none;margin-bottom:16px">
         <div style="font-size:13px;color:#888;margin-bottom:8px" id="bulk-status-text">Uploading...</div>
-        <div class="progress-bar" style="display:block"><div class="progress-fill" id="bulk-fill"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="bulk-fill"></div></div>
       </div>
       <div style="display:flex;align-items:center;gap:16px">
         <button class="abtn primary" onclick="doBulkUpload()" id="bulk-upload-btn" style="display:none">Upload All Photos</button>
@@ -600,14 +545,12 @@ function tabUpload(){
       </div>
     </div>
   </div>
-
-  <!-- STEP 3: Cover picker -->
   <div id="step3" style="display:none">
     <div class="upload-form-box">
-      <div style="font-size:13px;font-weight:500;color:#aaa;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Step 3 — Pick Cover Photo</div>
+      <div style="font-size:11px;font-weight:500;color:#aaa;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">Step 3 — Pick Cover Photo</div>
       <div style="font-size:13px;color:#888;margin-bottom:16px">Click a photo to set it as the cover shown in the gallery.</div>
       <div class="cover-grid" id="cover-grid"></div>
-      <button class="abtn primary" style="margin-top:24px" onclick="saveProject()">Save Project to Gallery</button>
+      <button class="abtn primary" style="margin-top:24px" onclick="saveProject()">Save Project to Gallery ✓</button>
     </div>
   </div>`;
 }
@@ -619,6 +562,7 @@ function goStep2(){
   document.getElementById('step1').style.opacity='.5';
   document.getElementById('step1').style.pointerEvents='none';
   initUpload();
+  document.getElementById('step2').scrollIntoView({behavior:'smooth'});
 }
 
 function initUpload(){
@@ -636,12 +580,11 @@ function onFilesSelected(fileList){
   lbl.textContent=bulkFiles.length+' photo'+(bulkFiles.length>1?'s':'')+' selected';
   btn.style.display='inline-block';
   document.getElementById('bulk-queue').innerHTML=
-    '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin:16px 0">'+
+    '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin:12px 0">'+
     bulkFiles.map((f,i)=>`<div style="border-radius:4px;overflow:hidden;aspect-ratio:4/3;background:#f0ede8;position:relative" id="qitem-${i}">
       <img src="${URL.createObjectURL(f)}" style="width:100%;height:100%;object-fit:cover;display:block">
-      <div id="qstatus-${i}" style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);color:#fff;font-size:10px;padding:3px 6px;text-align:center"></div>
-    </div>`).join('')+
-    '</div>';
+      <div id="qstatus-${i}" style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);color:#fff;font-size:10px;padding:3px 6px;text-align:center;display:none"></div>
+    </div>`).join('')+'</div>';
 }
 
 async function compressImage(file,maxBytes){
@@ -679,31 +622,30 @@ async function doBulkUpload(){
   const fill=document.getElementById('bulk-fill');
   const statusText=document.getElementById('bulk-status-text');
   btn.disabled=true;wrap.style.display='block';
-  const MAX_BYTES=9.5*1024*1024;
+  const MAX=9.5*1024*1024;
   let done=0,failed=0;
   for(let i=0;i<bulkFiles.length;i++){
     const f=bulkFiles[i];
     const qs=document.getElementById('qstatus-'+i);
+    if(qs){qs.style.display='block';qs.textContent='...';}
     statusText.textContent='Uploading '+(i+1)+' of '+bulkFiles.length+'...';
     fill.style.width=Math.round((i/bulkFiles.length)*100)+'%';
     try{
-      let fileToUpload=f;
-      if(f.size>MAX_BYTES){if(qs) qs.textContent='Compressing...';fileToUpload=await compressImage(f,MAX_BYTES);}
+      let fu=f;
+      if(f.size>MAX){if(qs) qs.textContent='Compressing...';fu=await compressImage(f,MAX);}
       if(qs) qs.textContent='Uploading...';
       const fd=new FormData();
-      fd.append('file',fileToUpload);
-      fd.append('upload_preset',UPLOAD_PRESET);
-      fd.append('folder','brightphoto');
+      fd.append('file',fu);fd.append('upload_preset',UPLOAD_PRESET);fd.append('folder','brightphoto');
       const res=await fetch('https://api.cloudinary.com/v1_1/'+CLOUD_NAME+'/image/upload',{method:'POST',body:fd});
       if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||'HTTP '+res.status);}
       const data=await res.json();
       if(data.error) throw new Error(data.error.message);
       uploadedPhotos.push({url:data.secure_url});
       done++;
-      if(qs){qs.textContent='✓';qs.style.background='rgba(76,175,80,.7)';}
+      if(qs){qs.textContent='✓';qs.style.background='rgba(76,175,80,.8)';}
     }catch(e){
       failed++;
-      if(qs){qs.textContent='✗ '+e.message;qs.style.background='rgba(226,75,74,.7)';}
+      if(qs){qs.textContent='✗';qs.style.background='rgba(226,75,74,.8)';}
     }
   }
   fill.style.width='100%';
@@ -711,20 +653,17 @@ async function doBulkUpload(){
   btn.disabled=false;
   if(uploadedPhotos.length>0){
     showToast(done+' photos uploaded! Now pick a cover.');
-    setTimeout(()=>showCoverPicker(),800);
+    setTimeout(()=>{
+      document.getElementById('step3').style.display='block';
+      selectedCoverIndex=0;
+      document.getElementById('cover-grid').innerHTML=uploadedPhotos.map((p,i)=>`
+        <div class="cover-item${i===0?' selected':''}" id="citem-${i}" onclick="selectCover(${i})">
+          <img src="${p.url}" alt="">
+          <div class="cover-check"><i class="ti ti-check" style="font-size:11px"></i></div>
+        </div>`).join('');
+      document.getElementById('step3').scrollIntoView({behavior:'smooth'});
+    },600);
   }
-}
-
-let selectedCoverIndex=0;
-function showCoverPicker(){
-  document.getElementById('step3').style.display='block';
-  selectedCoverIndex=0;
-  document.getElementById('cover-grid').innerHTML=uploadedPhotos.map((p,i)=>`
-    <div class="cover-item${i===0?' selected':''}" id="citem-${i}" onclick="selectCover(${i})">
-      <img src="${p.url}" alt="">
-      <div class="cover-check"><i class="ti ti-check" style="font-size:12px"></i></div>
-    </div>`).join('');
-  document.getElementById('step3').scrollIntoView({behavior:'smooth'});
 }
 
 function selectCover(i){
@@ -735,25 +674,18 @@ function selectCover(i){
 
 function saveProject(){
   if(!uploadedPhotos.length){showToast('No photos to save.');return;}
-  const title=document.getElementById('up-title')?.value.trim()||'Untitled Project';
+  const title=document.getElementById('up-title')?.value.trim()||'Untitled';
   const cat=document.getElementById('up-cat')?.value||'';
   const date=document.getElementById('up-date')?.value||'';
   const client=document.getElementById('up-client')?.value.trim()||'';
   const projects=loadProjects();
-  projects.push({
-    id:Date.now().toString(),
-    title,category:cat,client,date,
-    coverIndex:selectedCoverIndex,
-    photos:uploadedPhotos,
-    uploaded:new Date().toISOString()
-  });
+  projects.push({id:Date.now().toString(),title,category:cat,client,date,coverIndex:selectedCoverIndex,photos:uploadedPhotos,uploaded:new Date().toISOString()});
   saveProjects(projects);
   showToast('Project "'+title+'" saved to gallery!');
   bulkFiles=[];uploadedPhotos=[];selectedCoverIndex=0;
-  renderAdminTab('upload');
+  setTimeout(()=>renderAdminTab('upload'),1000);
 }
 
-// ── MANAGE PROJECTS ───────────────────────────────────────
 function tabManage(){
   const projects=loadProjects();
   if(!projects.length) return `<div class="admin-hdr"><div><div class="admin-ttl">Manage Projects</div></div></div><p style="color:#aaa;font-size:14px">No projects yet. <a onclick="showAdminTab('upload',null)" style="cursor:pointer;text-decoration:underline;color:#1a1a1a">Create your first project →</a></p>`;
@@ -776,7 +708,7 @@ function tabManage(){
 }
 
 function deleteProject(id){
-  if(!confirm('Delete this project and all its photos from the gallery? (Photos stay in Cloudinary)')) return;
+  if(!confirm('Delete this project? Photos stay in Cloudinary.')) return;
   saveProjects(loadProjects().filter(p=>p.id!==id));
   renderAdminTab('manage');showToast('Project deleted.');
 }
@@ -784,12 +716,11 @@ function deleteProject(id){
 function changeCover(id){
   const projects=loadProjects();
   const proj=projects.find(p=>p.id===id);if(!proj) return;
-  uploadedPhotos=proj.photos;
-  selectedCoverIndex=proj.coverIndex||0;
+  uploadedPhotos=proj.photos;selectedCoverIndex=proj.coverIndex||0;
   document.getElementById('admin-content').innerHTML=`
-    <div class="admin-hdr"><div><div class="admin-ttl">Change Cover — ${proj.title}</div></div></div>
+    <div class="admin-hdr"><div><div class="admin-ttl">Change Cover</div><div class="admin-sub">${proj.title}</div></div></div>
     <div class="upload-form-box">
-      <div style="font-size:13px;color:#888;margin-bottom:16px">Click a photo to set it as the new cover.</div>
+      <div style="font-size:13px;color:#888;margin-bottom:16px">Click a photo to set as the new cover.</div>
       <div class="cover-grid" id="cover-grid"></div>
       <div style="display:flex;gap:12px;margin-top:24px">
         <button class="abtn primary" onclick="saveCoverChange('${id}')">Save Cover</button>
@@ -799,7 +730,7 @@ function changeCover(id){
   document.getElementById('cover-grid').innerHTML=proj.photos.map((p,i)=>`
     <div class="cover-item${i===selectedCoverIndex?' selected':''}" id="citem-${i}" onclick="selectCover(${i})">
       <img src="${p.url}" alt="">
-      <div class="cover-check"><i class="ti ti-check" style="font-size:12px"></i></div>
+      <div class="cover-check"><i class="ti ti-check" style="font-size:11px"></i></div>
     </div>`).join('');
 }
 
@@ -807,12 +738,9 @@ function saveCoverChange(id){
   const projects=loadProjects();
   const proj=projects.find(p=>p.id===id);if(!proj) return;
   proj.coverIndex=selectedCoverIndex;
-  saveProjects(projects);
-  showToast('Cover updated!');
-  renderAdminTab('manage');
+  saveProjects(projects);showToast('Cover updated!');renderAdminTab('manage');
 }
 
-// ── CATEGORIES ────────────────────────────────────────────
 function tabCategories(){
   const cats=loadCats();const projects=loadProjects();
   return `<div class="admin-hdr">
@@ -839,12 +767,12 @@ function saveCatModal(){
   if(!val){showToast('Please enter a name.');return;}
   const cats=loadCats();
   if(catEditIndex===-1){if(cats.includes(val)){showToast('Already exists.');return;}cats.push(val);showToast('"'+val+'" added.');}
-  else{cats[catEditIndex]=val;showToast('Renamed to "'+val+'".');}
+  else{cats[catEditIndex]=val;showToast('Renamed.');}
   saveCats(cats);closeCatModal();renderAdminTab('categories');renderCatChips();
 }
 function deleteCat(i){
   const cats=loadCats();
-  if(!confirm('Delete category "'+cats[i]+'"?')) return;
+  if(!confirm('Delete "'+cats[i]+'"?')) return;
   cats.splice(i,1);saveCats(cats);renderAdminTab('categories');renderCatChips();showToast('Deleted.');
 }
 
@@ -864,7 +792,6 @@ function tabInquiries(){
   </tbody></table></div>`;
 }
 
-// ── INIT ──────────────────────────────────────────────────
 renderCatChips();
 renderGallery('all');
 </script>
